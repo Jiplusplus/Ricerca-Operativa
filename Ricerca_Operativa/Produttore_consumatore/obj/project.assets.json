@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ji.18153\\Desktop\\Produttore_consumatore\\Produttore_consumatore\\Produttore_consumatore.csproj",
+      "projectUniqueName": "C:\\Users\\ji.18153\\Desktop\\Ricerca-Operativa\\Ricerca_Operativa\\Produttore_consumatore\\Produttore_consumatore.csproj",
       "projectName": "Produttore_consumatore",
-      "projectPath": "C:\\Users\\ji.18153\\Desktop\\Produttore_consumatore\\Produttore_consumatore\\Produttore_consumatore.csproj",
+      "projectPath": "C:\\Users\\ji.18153\\Desktop\\Ricerca-Operativa\\Ricerca_Operativa\\Produttore_consumatore\\Produttore_consumatore.csproj",
       "packagesPath": "C:\\Users\\ji.18153\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ji.18153\\Desktop\\Produttore_consumatore\\Produttore_consumatore\\obj\\",
+      "outputPath": "C:\\Users\\ji.18153\\Desktop\\Ricerca-Operativa\\Ricerca_Operativa\\Produttore_consumatore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ji.18153\\AppData\\Roaming\\NuGet\\NuGet.Config",

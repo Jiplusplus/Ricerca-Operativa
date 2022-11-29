@@ -36,9 +36,13 @@
             this.consumatori = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.riempi = new System.Windows.Forms.Button();
+            this.istruzioni = new System.Windows.Forms.Panel();
+            this.operazioni = new System.Windows.Forms.ListBox();
+            this.nord_ovest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.matrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produttori)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.consumatori)).BeginInit();
+            this.istruzioni.SuspendLayout();
             this.SuspendLayout();
             // 
             // matrice
@@ -48,7 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.matrice.BackgroundColor = System.Drawing.Color.White;
             this.matrice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.matrice.Location = new System.Drawing.Point(23, 166);
+            this.matrice.Location = new System.Drawing.Point(26, 166);
             this.matrice.Name = "matrice";
             this.matrice.RowTemplate.Height = 25;
             this.matrice.Size = new System.Drawing.Size(1008, 423);
@@ -125,6 +129,35 @@
             this.riempi.UseVisualStyleBackColor = true;
             this.riempi.Click += new System.EventHandler(this.riempi_Click);
             // 
+            // istruzioni
+            // 
+            this.istruzioni.BackColor = System.Drawing.Color.RoyalBlue;
+            this.istruzioni.Controls.Add(this.operazioni);
+            this.istruzioni.Location = new System.Drawing.Point(570, 193);
+            this.istruzioni.Name = "istruzioni";
+            this.istruzioni.Size = new System.Drawing.Size(446, 370);
+            this.istruzioni.TabIndex = 11;
+            this.istruzioni.Visible = false;
+            // 
+            // operazioni
+            // 
+            this.operazioni.FormattingEnabled = true;
+            this.operazioni.ItemHeight = 15;
+            this.operazioni.Location = new System.Drawing.Point(57, 16);
+            this.operazioni.Name = "operazioni";
+            this.operazioni.Size = new System.Drawing.Size(353, 334);
+            this.operazioni.TabIndex = 0;
+            // 
+            // nord_ovest
+            // 
+            this.nord_ovest.Location = new System.Drawing.Point(896, 86);
+            this.nord_ovest.Name = "nord_ovest";
+            this.nord_ovest.Size = new System.Drawing.Size(120, 57);
+            this.nord_ovest.TabIndex = 12;
+            this.nord_ovest.Text = "Nord-Ovest";
+            this.nord_ovest.UseVisualStyleBackColor = true;
+            this.nord_ovest.Click += new System.EventHandler(this.nord_ovest_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -132,6 +165,8 @@
             this.BackColor = System.Drawing.Color.Silver;
             this.BackgroundImage = global::Produttore_consumatore.Properties.Resources.sfondo_applicazioni;
             this.ClientSize = new System.Drawing.Size(1056, 601);
+            this.Controls.Add(this.nord_ovest);
+            this.Controls.Add(this.istruzioni);
             this.Controls.Add(this.riempi);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.consumatori);
@@ -147,6 +182,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.matrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produttori)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.consumatori)).EndInit();
+            this.istruzioni.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +198,8 @@
         private NumericUpDown consumatori;
         private Label label1;
         private Button riempi;
+        private Panel istruzioni;
+        private ListBox operazioni;
+        private Button nord_ovest;
     }
 }
