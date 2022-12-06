@@ -95,7 +95,6 @@
             this.produttori.Name = "produttori";
             this.produttori.Size = new System.Drawing.Size(120, 23);
             this.produttori.TabIndex = 7;
-            this.produttori.Click += new System.EventHandler(this.produttori_Click);
             // 
             // consumatori
             // 
@@ -103,7 +102,6 @@
             this.consumatori.Name = "consumatori";
             this.consumatori.Size = new System.Drawing.Size(120, 23);
             this.consumatori.TabIndex = 8;
-            this.consumatori.Click += new System.EventHandler(this.consumatori_Click);
             // 
             // label1
             // 
