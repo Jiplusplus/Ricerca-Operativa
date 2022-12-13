@@ -1,12 +1,14 @@
+using System.Runtime.CompilerServices;
+
 namespace Produttore_consumatore
 {
     public partial class Form1 : Form
     {
+        bool tabella = false;
         public Form1()
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             matrice.AllowUserToAddRows = false;
@@ -20,14 +22,16 @@ namespace Produttore_consumatore
 
         private void genera_Click(object sender, EventArgs e)
         {
-            matrice.Columns.Clear();
-            matrice.Rows.Clear();
-            if (produttori.Text == "" || consumatori.Text == "")
+            if (int.Parse(produttori.Text) < 1 && int.Parse(consumatori.Text) < 1)
             {
                 MessageBox.Show("Campi vuoiti! Inserire i dati neccessari!");
+                tabella = false;
             }
             else
             {
+                matrice.Columns.Clear();
+                matrice.Rows.Clear();
+                tabella = true;
                 if (int.Parse(produttori.Text) > 1 && int.Parse(consumatori.Text) > 1)
                 {
                     matrice.RowHeadersVisible = false;
@@ -53,6 +57,7 @@ namespace Produttore_consumatore
                 else
                 {
                     MessageBox.Show("I campi devono essere magggiore di uno per avere senso");
+                    tabella = false;
                 }
 
             }
@@ -98,33 +103,47 @@ namespace Produttore_consumatore
 
         private void riempi_Click(object sender, EventArgs e)
         {
-            Random r = new Random();
-            for (int i = 0; i < matrice.Rows.Count - 1; i++)
+            if (tabella == true)
             {
-                for (int j = 1; j < matrice.Columns.Count - 1; j++)
+                if (controllo_vuoto() == false)
                 {
-                    matrice.Rows[i].Cells[j].Value = r.Next(0, 200);
+                    Random r = new Random();
+                    for (int i = 0; i < matrice.Rows.Count - 1; i++)
+                    {
+                        for (int j = 1; j < matrice.Columns.Count - 1; j++)
+                        {
+                            matrice.Rows[i].Cells[j].Value = r.Next(0, 200);
+                        }
+                    }
+                    int tot = 0;
+                    int n;
+                    for (int i = 1; i < matrice.ColumnCount - 1; i++)
+                    {
+                        n = r.Next(0, 100);
+                        matrice[i, matrice.RowCount - 1].Value = n;
+                        tot += n;
+                    }
+                    matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
+
+                    for (int j = 0; j < matrice.RowCount - 2; j++)
+                    {
+                        n = r.Next(0, tot);
+                        matrice[matrice.ColumnCount - 1, j].Value = n;
+                        tot -= n;
+                    }
+                    int value = tot;
+                    matrice[matrice.ColumnCount - 1, matrice.RowCount - 2].Value = value;
+                    matrice.ReadOnly = true;
+                }
+                else
+                {
+                    MessageBox.Show("Genera tabella");
                 }
             }
-            int tot = 0;
-            int n;
-            for (int i = 1; i < matrice.ColumnCount - 1; i++)
+            else
             {
-                n = r.Next(0, 100);
-                matrice[i, matrice.RowCount - 1].Value = n;
-                tot += n;
-            }
-            matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
-
-            for (int j = 0; j < matrice.RowCount - 2; j++)
-            {
-                n = r.Next(0, tot);
-                matrice[matrice.ColumnCount - 1, j].Value = n;
-                tot -= n;
-            }
-            int value = tot;
-            matrice[matrice.ColumnCount - 1, matrice.RowCount - 2].Value = value;
-            matrice.ReadOnly = true;
+                MessageBox.Show("Tabella non creata");
+            }  
         }
 
         private bool controllo()
@@ -154,54 +173,63 @@ namespace Produttore_consumatore
         private void nord_ovest_Click(object sender, EventArgs e)
         {
  
-            istruzioni.Visible = true;
             int costi = 0;
             int prodotto;
-
-            if (controllo_vuoto() == true)
+            if (tabella == true)
             {
-                if (controllo() == true)
+                if (controllo_vuoto() == true)
                 {
-                    operazioni.Items.Add("NORD-OVEST\n");
-                    MessageBox.Show(matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value.ToString());
-                    int tot = int.Parse(matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value.ToString());
-                    while (matrice.Rows.Count > 1 && matrice.RowCount > 1)
+                    if (controllo() == true)
                     {
-                        int col = int.Parse(matrice[matrice.ColumnCount - 1, 0].Value.ToString());
-                        int row = int.Parse(matrice[1, matrice.RowCount - 1].Value.ToString());
-                        int n = int.Parse(matrice[1, 0].Value.ToString());
-                        if (col > row)
+
+                        istruzioni.Visible = true;
+                        operazioni.Items.Add("NORD-OVEST\n");
+                        int tot = int.Parse(matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value.ToString());
+                        while (matrice.Rows.Count > 1 && matrice.RowCount > 1)
                         {
-                            col -= row;
-                            tot -= row;
-                            matrice[matrice.ColumnCount - 1, 0].Value = col;
-                            matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
-                            costi += n * row;
-                            prodotto = n * row;
-                            operazioni.Items.Add(n.ToString() + " x " + row.ToString() + " = " + prodotto.ToString() + "\n");
-                            matrice.Columns.Remove(matrice.Columns[1]);
+                            int col = int.Parse(matrice[matrice.ColumnCount - 1, 0].Value.ToString());
+                            int row = int.Parse(matrice[1, matrice.RowCount - 1].Value.ToString());
+                            int n = int.Parse(matrice[1, 0].Value.ToString());
+                            if (col > row)
+                            {
+                                col -= row;
+                                tot -= row;
+                                matrice[matrice.ColumnCount - 1, 0].Value = col;
+                                matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
+                                costi += n * row;
+                                prodotto = n * row;
+                                operazioni.Items.Add(n.ToString() + " x " + row.ToString() + " = " + prodotto.ToString() + "\n");
+                                matrice.Columns.Remove(matrice.Columns[1]);
+                            }
+                            else
+                            {
+                                row -= col;
+                                tot -= col;
+                                matrice[1, matrice.RowCount - 1].Value = row;
+                                matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
+                                costi += n * col;
+                                prodotto = n * col;
+                                operazioni.Items.Add(n.ToString() + " x " + col.ToString() + " = " + prodotto.ToString() + "\n");
+                                matrice.Rows.Remove(matrice.Rows[0]);
+                            }
+                            var pause = Task.Delay(1000);
+                            pause.Wait();
                         }
-                        else
-                        {
-                            row -= col;
-                            tot -= col;
-                            matrice[1, matrice.RowCount - 1].Value = row;
-                            matrice[matrice.ColumnCount - 1, matrice.RowCount - 1].Value = tot;
-                            costi += n * col;
-                            prodotto = n * col;
-                            operazioni.Items.Add(n.ToString() + " x " + col.ToString() + " = " + prodotto.ToString() + "\n");
-                            matrice.Rows.Remove(matrice.Rows[0]);
-                        }
-                        var pause = Task.Delay(1000);
-                        pause.Wait();
+
+                        operazioni.Items.Add("Costo totale: " + costi.ToString());
                     }
-                    operazioni.Items.Add("Costo totale: " + costi.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Le somma non coincidono");
                 }
             }
-            else
-            {
-                MessageBox.Show("Le somma non coincidono");
-            }
+        }
+
+        private void nuovo_Click(object sender, EventArgs e)
+        {
+            istruzioni.Visible = false;
+            operazioni.Items.Clear(); 
         }
     }
 }
